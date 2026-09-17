@@ -10,3 +10,5 @@ Route::get('games/edit/{id}', [App\Http\Controllers\GameController::class, 'edit
 Route::post('games/update/{id}', [App\Http\Controllers\GameController::class, 'update']);
 
 Route::post('games/destroy/{id}', [App\Http\Controllers\GameController::class, 'destroy']);
+
+Route::get('games/show/{id}', [App\Http\Controllers\GameController::class, 'show']);
