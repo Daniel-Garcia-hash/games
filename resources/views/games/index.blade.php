@@ -9,6 +9,10 @@
 <body>
     <div class="container" style="margin:40px;">
         <h1 class="display-4">🎮 Game Collection</h1>
+        <a href="/games/create" class="btn btn-success mb-3">🎮 Add Game</a>
+        @if (session('success'))
+            <div class="alert alert-success" role="alert">{{ session('success') }}</div>
+        @endif
         <table class="table">
             <thead class="thead-dark">
                 <tr>
@@ -16,6 +20,8 @@
                     <th>Game</th>
                     <th>Platform</th>
                     <th>Rating</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
                 </tr>
             </thead>
             <tbody>
@@ -24,7 +30,16 @@
                         <td>{{ $game->id }}</td>
                         <td>{{ $game->game_name }}</td>
                         <td>{{ $game->platform }}</td>
-                        <td>{{ $game->rating }}/10</td> 
+                        <td>{{ $game->rating }}/10</td>
+                        <td>
+                            <a href="/games/edit/{{ $game->id }}" class="btn btn-primary btn-sm">Edit</a>
+                        </td> 
+                        <td>
+                            <form action="/games/destroy/{{ $game->id }}" method="post" onsubmit="return confirm('Weet je het zeker?')">
+                                @csrf
+                                <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+                            </form>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
