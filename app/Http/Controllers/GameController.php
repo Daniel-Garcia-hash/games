@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class GameController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the resource, retrieving all games from the database and passing them to the view for the datatabase.
      */
     public function index()
     {
@@ -17,7 +17,7 @@ class GameController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new resource, allowing users to input data for a new game.
      */
     public function create()
     {
@@ -25,7 +25,7 @@ class GameController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created resource in storage, validating the imput data and saving it to the database.
      */
     public function store(Request $request)
     {
@@ -58,7 +58,7 @@ class GameController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified resource, allowing users to modify the data of an existing game.
      */
     public function edit(string $id)
     {
@@ -67,7 +67,7 @@ class GameController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified resource in storage, validating the input data and saving the changes to the database.
      */
     public function update(Request $request, string $id)
     {
@@ -90,7 +90,7 @@ class GameController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified resource from storage, deleting the game from the databases.
      */
     public function destroy(string $id)
     {
