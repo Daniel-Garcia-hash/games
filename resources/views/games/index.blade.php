@@ -3,7 +3,17 @@
 @section('title', '🎮 Game Collection')
 
 @section('content')
-    <a href="/games/create" class="btn btn-success mb-3">🎮 Add Game</a>
+    @role('admin')
+        <p>Welkom beheerder! Je hebt volledige toegang.</p>
+    @endrole
+
+    @role('klant')
+        <p>Welkom klant! Je kunt de gamecollectie bekijken.</p>
+    @endrole
+
+    @can('product invoeren')
+        <a href="/games/create" class="btn btn-success mb-3">🎮 Add Game</a>
+    @endcan
     @if (session('success'))
         <div class="alert alert-success" role="alert">{{ session('success') }}</div>
     @endif
@@ -15,8 +25,12 @@
                 <th>Platform</th>
                 <th>Rating</th>
                 <th>Show</th>
-                <th>Edit</th>
-                <th>Delete</th>
+                @can('product aanpassen')
+                    <th>Edit</th>
+                @endcan
+                @can('product verwijderen')
+                    <th>Delete</th>
+                @endcan
             </tr>
         </thead>
         <tbody>
@@ -31,21 +45,30 @@
                     <td>
                         <a href="/games/show/{{ $game->id }}" class="btn btn-info btn-sm">Show</a>
                     </td>
+                    @can('product aanpassen')
                     <td>
                         <a href="/games/edit/{{ $game->id }}" class="btn btn-primary btn-sm">Edit</a>
-                    </td> 
+                    </td>
+                    @endcan
+                    @can('product verwijderen')
                     <td>
                         <form action="/games/destroy/{{ $game->id }}" method="post" onsubmit="return confirm('Weet je het zeker?')">
                             @csrf
                             <button class="btn btn-danger btn-sm" type="submit">Delete</button>
                         </form>
                     </td>
+                    @endcan
                 </tr>
             @endforeach
             <tr>
                 <td colspan="4"><strong>Gemiddelde rating:</strong></td>
                 <td><strong>{{ count($games) > 0 ? number_format($sum / count($games), 1) : 0 }}/10</strong></td>
-                <td colspan="2"></td>
+                @can('product aanpassen')
+                    <td></td>
+                @endcan
+                @can('product verwijderen')
+                    <td></td>
+                @endcan
             </tr>
         </tbody>
     </table>
