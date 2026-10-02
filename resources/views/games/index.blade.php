@@ -43,7 +43,9 @@
                     <td>{{ $game->platform }}</td>
                     <td>{{ $game->rating }}/10</td>
                     <td>
-                        <a href="/games/show/{{ $game->id }}" class="btn btn-info btn-sm">Show</a>
+                        @role('admin')
+                            <a href="/games/show/{{ $game->id }}" class="btn btn-info btn-sm">Show</a>
+                        @endrole
                     </td>
                     @can('product aanpassen')
                     <td>

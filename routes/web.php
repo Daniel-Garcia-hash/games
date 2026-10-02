@@ -24,11 +24,13 @@ Route::get('/geheim', function () {
     return view('geheim');
 })->middleware('auth');
 
-// Iedereen mag het overzicht zien
-Route::get('/games', [GameController::class, 'index']);
+// Klanten en admins mogen het overzicht zien.
+Route::get('/games', [GameController::class, 'index'])
+    ->middleware(['auth', 'role:admin|klant']);
 
-// Alleen ingelogde gebruikers
-Route::middleware('auth')->group(function () {
+// Alleen admins mogen de overige gamepagina's en acties gebruiken.
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/games/show/{id}', [GameController::class, 'show']);
     Route::get('/games/create', [GameController::class, 'create']);
     Route::post('/games/store', [GameController::class, 'store']);
     Route::get('/games/edit/{id}', [GameController::class, 'edit']);
